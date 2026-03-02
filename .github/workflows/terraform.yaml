@@ -11,7 +11,22 @@ on:
        options:
           - 'true'
           - 'false'
-
+     destroy-plan:
+       description: 'Plan Destroy Terraform resources'
+       required: true
+       default: 'false'
+       type: choice
+       options:
+          - 'true'
+          - 'false'
+     destroy:
+       description: 'Destroy Terraform resources'
+       required: true
+       default: 'false'
+       type: choice
+       options:
+          - 'true'
+          - 'false'
 permissions:
   id-token: write   
   contents: read
@@ -45,3 +60,11 @@ jobs:
       - name: Terraform Apply
         if: ${{ github.event.inputs.apply == 'true' }}
         run: terraform apply -auto-approve tfplan
+
+      - name: Terraform Plan Destroy
+        if: ${{ github.event.inputs['destroy-plan'] == 'true' }}
+        run: terraform plan -destroy -out=tfplan-destroy
+      
+      - name: Terraform Destroy
+        if: ${{ github.event.inputs.destroy == 'true' }}
+        run: terraform destroy -auto-approve tfplan-destroy 
