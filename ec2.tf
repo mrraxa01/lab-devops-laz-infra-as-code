@@ -25,7 +25,7 @@ resource "aws_security_group" "lab2-laz_sg" {
 
 resource "aws_vpc_security_group_ingress_rule" "allow_ssh" {
   security_group_id = aws_security_group.lab2-laz_sg.id
-  cidr_ipv4         = "201.71.38.149/32"
+  cidr_ipv4         = "0.0.0.0/0"
   from_port         = 22
   ip_protocol       = "tcp"
   to_port           = 22
