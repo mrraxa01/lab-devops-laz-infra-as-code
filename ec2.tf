@@ -4,7 +4,7 @@ resource "aws_instance" "lab2-laz_server" {
   key_name               = "Terraform"
   vpc_security_group_ids = [aws_security_group.lab2-laz_sg.id]
   iam_instance_profile   = "EC2-ECR-ROLE-READ-ONLY"
-
+  user_data = file("init_s2.sh")
   tags = {
     Name        = "lab2-laz"
     Provisioned = "Terraform"
